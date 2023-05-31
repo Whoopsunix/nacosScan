@@ -1,8 +1,8 @@
 # Nacos JWT 硬编码登陆
 
-# 0x0x 梭哈
+https://github.com/alibaba/nacos/issues/9830
 
-[nacosScan.py](/pochub/nacos/nacosScan.py ':ignore')
+# 0x0x 梭哈
 
 do what?
 
