@@ -12,6 +12,10 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuYWNvcyIsImV4cCI6MTY3NTA4Mzg3N30.mIjNX6MXNF3FgQNTl-FduWpsaTSZrOQZxTCu7Tg46ZU"
 
+proxy = {
+    "socks5": 'socks5://127.0.0.1:1080'
+}
+
 
 class NacosConfig:
     """
@@ -55,6 +59,7 @@ class NacosConfig:
             session.mount("http://", adapter)
             session.mount("https://", adapter)
 
+            # response = session.get(self.url, proxies=proxy)
             response = session.get(self.url)
             final_url = response.url
             if final_url != "":
@@ -174,6 +179,7 @@ class NacosConfig:
         获取所有的命名空间配置
         """
         configurl = self.url + "v1/console/namespaces?accessToken={}&namespaceId=".format(self.accessToken)
+        # response = requests.get(configurl, headers=self.header, timeout=10, verify=False, proxies=proxy)
         response = requests.get(configurl, headers=self.header, timeout=10, verify=False)
         if response.status_code != 200:
             return
@@ -188,6 +194,7 @@ class NacosConfig:
             try:
                 configsUrl = self.url + "v1/cs/configs?dataId=&group=&appName=&config_tags=&pageNo=1&pageSize=10&tenant={}&search=accurate&accessToken={}&username={}".format(
                     namespace, self.accessToken, "nacos")
+                # response = requests.get(configsUrl, headers=self.header, timeout=10, verify=False, proxies=proxy)
                 response = requests.get(configsUrl, headers=self.header, timeout=10, verify=False)
                 response_data = response.json()
                 for item in response_data['pageItems']:
@@ -204,7 +211,9 @@ class NacosConfig:
                 continue
 
     def save(self):
-        if len(self.values) <= 0:
+        if len(self.contents['json']) <= 0 and len(self.contents['properties']) <= 0 and len(
+                self.contents['yaml']) <= 0 and len(self.contents['UNKNOWN']) <= 0:
+            # if len(self.values) <= 0:
             return
 
         folder_name = "result"
@@ -277,7 +286,7 @@ def run_cli(url, urls, accesstoken):
 
 if __name__ == '__main__':
     # # 单个
-    # url = "https://host/nacos"
+    # url = "http://{ip}/nacos"
     # values = NacosConfig(url).run()
     # for value in values:
     #     print(value)
@@ -285,4 +294,5 @@ if __name__ == '__main__':
     # 多个
     # url_files = "url.txt"
     # NacosConfigManager(url_files).run()
+
     run_cli()
