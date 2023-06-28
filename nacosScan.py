@@ -222,6 +222,8 @@ class NacosConfig:
 
         file_name = folder_name + "/" + urlparse(self.url).netloc + ".txt"
 
+        file_name = file_name.replace(":", "_")
+
         # 写入文件内容
         with open(file_name, "w") as file:
             for values in self.contents.values():
@@ -267,7 +269,7 @@ def run_cli(url, urls, accesstoken):
     """
         censys jwtToken bypass login\n
         eg:\n
-            python3 nacosScan.py -u http://ip:port -t {accesstoken}\n
+            python3 nacosScan.py -u http://127.0.0.1/nacos -t {accesstoken}\n
             python3 nacosScan.py -uf url.txt\n
 
                             By. Whoopsunix
