@@ -37,8 +37,8 @@ class NacosConfig:
             "Connection": "close"}
 
         # 期望提取的key
-        self.niceKey = ["aliyun", "oss", "datasource", "redis", "ftp", "server", "wechat", "store"]
-        self.nicePropertiesKey = ["password"]
+        self.niceKey = ["aliyun", "oss", "datasource", "redis", "ftp", "server", "wechat", "store", "minio"]
+        self.nicePropertiesKey = ["password", "minio"]
 
         # result
         self.namespaces = []
@@ -211,6 +211,7 @@ class NacosConfig:
                 continue
 
     def save(self):
+        print(self.contents)
         if len(self.contents['json']) <= 0 and len(self.contents['properties']) <= 0 and len(
                 self.contents['yaml']) <= 0 and len(self.contents['UNKNOWN']) <= 0:
             # if len(self.values) <= 0:
