@@ -241,7 +241,7 @@ class Manager:
                     if token is not None:
                         self.accesstoken = token
 
-                common.Print("start scan {}".format(turl)).info()
+                common.Print("start scan {}".format(turl)).log()
                 value = NacosConfig(turl, self.accesstoken).run()
                 if len(value) != 0:
                     common.Print("find config {}".format(turl)).star()

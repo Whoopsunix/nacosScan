@@ -1,5 +1,7 @@
 # NacosScan
 
+同步更新 https://github.com/Whoopsunix/nacosScan
+
 慢慢磨合 欢迎 issue
 
 # do what?
@@ -7,7 +9,7 @@
 - [x] 漏洞利用
   - [x] JWT 硬编码登陆
   - [x] api未授权添加用户
-
+  - [ ] Hessian 反序列化这个洞比较特殊有 group 限制就不加了，可以参考其他师傅的
 - [x] 可从文件中读取，支持输入url，也可以输入 host、ip 自动重定向。最好还是用 url 指定 nacos 路径
 - [x] 配置读取
   - [x] 默认会使用 JWT 硬编码尝试读取，可通过 -t 指定 token 在无漏洞时仍可读取配置文件
@@ -63,7 +65,7 @@ python3.8 nacosScan.py jwt -u {http://ip/nacos} -t {token}
 
 JWT 硬编码登陆、读配置
 
-![image-20230720111247294](attachments/image-20230720111247294.png)
+![image-20230721104935526](attachments/image-20230721104935526.png)
 
 api未授权添加用户
 
@@ -150,5 +152,31 @@ username=crowtt&password=crowt188
 
 ![image-20230720110732808](attachments/image-20230720110732808.png)
 
+# 0x03 Nacos 内网集群Raft 反序列化漏洞
 
+## 概述
+
+### 漏洞描述
+
+Nacos 提供了一组简单易用的特性集，帮助您快速实现动态服务发现、服务配置、服务元数据及流量管理。该漏洞仅影响7848端口（默认设置下），一般使用时该端口为Nacos集群间Raft协议的通信端口，不承载客户端请求，因此老版本可以通过禁止该端口来自Nacos集群外的请求达到止血目的（如部署时已进行限制或未暴露，则风险可控）。
+
+### 影响范围
+
+1.4.0 <= Nacos < 1.4.6
+
+2.0.0 <= Nacos < 2.2.3
+
+## 环境
+
+fofa
+
+```
+app="NACOS" 
+```
+
+## 复现
+
+https://l3yx.github.io/2023/06/09/Nacos-Raft-Hessian%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/
+
+https://y4er.com/posts/nacos-hessian-rce/
 

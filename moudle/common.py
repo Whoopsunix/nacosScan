@@ -95,7 +95,7 @@ class Print:
         :param msg:
         :return:
         '''
-        print("[+] {} [+]".format(self.msg))
+        print("\033[32;1m[+] {} [+]\033[0m".format(self.msg))
 
     def log(self):
         '''
@@ -111,7 +111,7 @@ class Print:
         :param msg:
         :return:
         '''
-        print("[!] {} [!]".format(self.msg))
+        print("\033[33;1m[!] {} [!]\033[0m".format(self.msg))
 
     def star(self):
         '''
@@ -119,7 +119,7 @@ class Print:
         :param msg:
         :return:
         '''
-        print("[*] {} [*]".format(self.msg))
+        print("\033[31;1m[*] {} [*]\033[0m".format(self.msg))
 
     '''
         开发配置

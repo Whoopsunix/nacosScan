@@ -62,7 +62,7 @@ class Manager:
         common.Print("api bypass add user").info()
         for url in self.urls:
             try:
-                common.Print("start scan {}".format(url)).info()
+                common.Print("start scan {}".format(url)).log()
                 ApiBypass(url, self.userinfo).run()
             except:
                 pass
